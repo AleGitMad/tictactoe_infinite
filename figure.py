@@ -1,6 +1,7 @@
 import pygame
 import random
 from dimensions import *
+from functions import *
 
 class Figure(pygame.sprite.Sprite):
     def __init__(self, shape, x, y, time):
@@ -12,27 +13,7 @@ class Figure(pygame.sprite.Sprite):
             self.color = BLUE
         else:
             self.color = RED
-        if self.x < WIDTH // 3:
-            if self.y < HEIGHT // 3:
-                self.position = 1
-            if self.y < HEIGHT // 3 * 2 and self.y >= HEIGHT // 3:
-                self.position = 4
-            if self.y >= HEIGHT // 3 * 2:
-                self.position = 7
-        if self.x < WIDTH // 3 * 2 and self.x >= WIDTH // 3:
-            if self.y < HEIGHT // 3:
-                self.position = 2
-            if self.y < HEIGHT // 3 * 2 and self.y >= HEIGHT // 3:
-                self.position = 5
-            if self.y >= HEIGHT // 3 * 2:
-                self.position = 8
-        if self.x >= WIDTH // 3 * 2:
-            if self.y < HEIGHT // 3:
-                self.position = 3
-            if self.y < HEIGHT // 3 * 2 and self.y >= HEIGHT // 3:
-                self.position = 6
-            if self.y >= HEIGHT // 3 * 2:
-                self.position = 9
+        self.position = get_position(x, y)
         self.image = pygame.Surface((CELL_SIZE, CELL_SIZE), pygame.SRCALPHA)
         self.time = time
         

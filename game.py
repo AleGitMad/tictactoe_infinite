@@ -2,6 +2,7 @@ import pygame
 import random
 from figure import Figure
 from dimensions import *
+from functions import *
 
 # Inizializza Pygame
 pygame.init()
@@ -38,15 +39,20 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             x, y = pygame.mouse.get_pos()
-            if turn == 0:
+            if all_figures.sprites():
+                for figure in all_figures.sprites():
+                    if figure.position == get_position(x, y):
+                        break
+            elif turn == 0:
                 figure = Figure('X', x, y, counter)
                 all_figures.add(figure)
                 turn = 1
+                counter += 1
             elif turn == 1:
                 figure = Figure('O', x, y, counter)
                 all_figures.add(figure)
                 turn = 0
-            counter += 1
+                counter += 1
     screen.fill(BLACK)
     draw_grid()
     for figure in all_figures.sprites():
