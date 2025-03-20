@@ -47,13 +47,8 @@ class Figure(pygame.sprite.Sprite):
 
         screen.blit(self.image, (x, y))
 
-    def update(self, counter):
+    def update(self, counter, map):
         if counter == self.time + 7:
             for group in self.groups():
                 group.remove(self)
-        for group in self.groups():
-            for figure in group.sprites():
-                if figure.position == self.position and figure.shape != self.shape:
-                    for group in self.groups():
-                        group.remove(self)
-                    break
+                map.remove(self.position)
