@@ -36,19 +36,35 @@ class Figure(pygame.sprite.Sprite):
                                 (center_x - padding, center_y - padding, 
                                  2 * padding, 2 * padding), 5)
         self.rect = self.image.get_rect(topleft=(x, y))
+        self.blinking = False
+        self.visible = True
+        self.blink_interval = 400  # Millisecondi
+        self.last_blink_time = 0
         
     def draw(self, screen):
-        row = (self.position - 1) // COLUMNS
-        col = (self.position - 1) % COLUMNS
+        if self.visible:
+            row = (self.position - 1) // COLUMNS
+            col = (self.position - 1) % COLUMNS
 
-        # Calcola il centro della cella
-        x = col * CELL_SIZE
-        y = row * CELL_SIZE
+            # Calcola il centro della cella
+            x = col * CELL_SIZE
+            y = row * CELL_SIZE
 
-        screen.blit(self.image, (x, y))
+            screen.blit(self.image, (x, y))
+
+    def start_blinking(self):
+        self.blinking = True
+        self.last_blink_time = pygame.time.get_ticks()
 
     def update(self, counter, map):
-        if counter == self.time + 7:
+        if counter == self.time + 6 and self.blinking == False:
+            self.start_blinking()
+        elif counter == self.time + 7:
             for group in self.groups():
                 group.remove(self)
                 map.remove(self.position)
+        if self.blinking:
+            now = pygame.time.get_ticks()
+            if now - self.last_blink_time >= self.blink_interval:
+                self.visible = not self.visible
+                self.last_blink_time = now

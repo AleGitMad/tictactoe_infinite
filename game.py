@@ -19,7 +19,7 @@ def draw_grid():
 font = pygame.font.Font(None, 36)  # Usa None per il font di default
 
 # Renderizza il testo (testo, anti-aliasing, colore)
-text_surface = font.render("Fine!", True, RED)
+text_surface = font.render("Fine!", True, GREEN)
 
 # Ottieni il rettangolo del testo e posizionalo al centro
 text_rect = text_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2))
@@ -61,7 +61,7 @@ while running:
     draw_grid()
     for figure in all_figures.sprites():
         figure.draw(screen)
-    all_figures.update(counter, map)
+        figure.update(counter, map)
     if map.check() != 0:
         screen.blit(text_surface, text_rect)
         end = True
