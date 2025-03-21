@@ -1,5 +1,4 @@
 import pygame
-import random
 from figure import Figure
 from dimensions import *
 from functions import *

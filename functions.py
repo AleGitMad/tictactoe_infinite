@@ -1,5 +1,3 @@
-import pygame
-import figure
 from dimensions import *
 
 def get_position(x, y):

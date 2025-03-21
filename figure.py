@@ -1,5 +1,4 @@
 import pygame
-import random
 from dimensions import *
 from functions import *
 
